@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    var role = ViewBag.Role as string;
+}
+
+<h2>Dashboard</h2>
+
+@if (role == "Superusuario")
+{
+    <h3>Opciones del Superusuario</h3>
+    <ul>
+        <li><a href="@Url.Action("RegistrarEstudiante", "Admin")">Registrar Estudiantes</a></li>
+        <li><a href="@Url.Action("RegistrarProfesor", "Admin")">Registrar Profesores</a></li>
+        <li><a href="@Url.Action("MatricularEstudiante", "Admin")">Matricular Estudiantes a Cursos</a></li>
+        <li><a href="@Url.Action("AsignarProfesor", "Admin")">Asignar Profesores a Cursos</a></li>
+    </ul>
+}
+else if (role == "Profesor")
+{
+    <h3>Opciones del Profesor</h3>
+    <ul>
+        <li><a href="@Url.Action("VerCursos", "Profesor")">Ver Cursos Asignados</a></li>
+        <li><a href="@Url.Action("RegistrarAsistencia", "Profesor")">Registrar Asistencia</a></li>
+    </ul>
+}
+else if (role == "Rector")
+{
+    <h3>Opciones del Rector</h3>
+    <ul>
+        <li><a href="@Url.Action("Reportes", "Rector")">Ver Reportes</a></li>
+    </ul>
+}
+else
+{
+    <p>No tienes opciones disponibles.</p>
+}
+
