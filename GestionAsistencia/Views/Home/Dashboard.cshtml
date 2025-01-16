@@ -7,13 +7,27 @@
 
 @if (role == "Superusuario")
 {
-    <h3>Opciones del Superusuario</h3>
-    <ul>
-        <li><a href="@Url.Action("RegistrarEstudiante", "Admin")">Registrar Estudiantes</a></li>
-        <li><a href="@Url.Action("RegistrarProfesor", "Admin")">Registrar Profesores</a></li>
-        <li><a href="@Url.Action("MatricularEstudiante", "Admin")">Matricular Estudiantes a Cursos</a></li>
-        <li><a href="@Url.Action("AsignarProfesor", "Admin")">Asignar Profesores a Cursos</a></li>
-    </ul>
+    <div class="list-group">
+        <a href="@Url.Action("Index", "Grado")" class="list-group-item list-group-item-action">
+            <h5 class="mb-1">Gestionar Grados</h5>
+            <p class="mb-1">Crea, edita o elimina grados existentes.</p>
+        </a>
+
+        <a href="@Url.Action("Index", "Estudiante")" class="list-group-item list-group-item-action">
+            <h5 class="mb-1">Gestionar Estudiantes</h5>
+            <p class="mb-1">Crea, edita o elimina estudiantes y asócialos a un grado.</p>
+        </a>
+
+        <a href="@Url.Action("Index", "Materia")" class="list-group-item list-group-item-action">
+            <h5 class="mb-1">Gestionar Materias</h5>
+            <p class="mb-1">Crea, edita o elimina materias asociadas a grados.</p>
+        </a>
+
+        <a href="@Url.Action("Index", "ProfesorMateriaGrado")" class="list-group-item list-group-item-action">
+            <h5 class="mb-1">Asociar Profesores a Materias y Grados</h5>
+            <p class="mb-1">Gestiona la relación entre profesores, materias y grados.</p>
+        </a>
+    </div>
 }
 else if (role == "Profesor")
 {

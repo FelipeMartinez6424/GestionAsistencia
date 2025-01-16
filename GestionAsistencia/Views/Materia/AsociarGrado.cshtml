@@ -1,0 +1,25 @@
+﻿@model Materia
+
+<h2>Asociar Grados a Materia: @Model.Nombre</h2>
+
+<form asp-action="AsociarGrado" method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+
+    <div class="mb-3">
+        <h4>Grados Disponibles</h4>
+        @foreach (var grado in ViewBag.Grados as List<Grado>)
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="gradoIds" value="@grado.Id"
+                @(ViewBag.GradosAsociados.Contains(grado.Id) ? "checked" : "") />
+                <label class="form-check-label">
+                    @grado.Nombre
+                </label>
+            </div>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar Asociaciones</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+

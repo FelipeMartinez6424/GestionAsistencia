@@ -1,0 +1,21 @@
+﻿<h2>Asociaciones de Profesores a Materias y Grados</h2>
+<a asp-action="Asociar" class="btn btn-primary">Crear Nueva Asociacion</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Profesor</th>
+            <th>Materia</th>
+            <th>Grado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var asociacion in Model)
+        {
+            <tr>
+                <td>@asociacion.Usuario.Nombre</td>
+                <td>@asociacion.Materia.Nombre</td>
+                <td>@asociacion.Grado.Nombre</td>
+            </tr>
+        }
+    </tbody>
+</table>

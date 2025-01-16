@@ -7,6 +7,7 @@
         public string Email { get; set; }
         public string Password { get; set; }
         public string Rol { get; set; } // Profesor, Rector, Superusuario
+        public ICollection<ProfesorMateriaGrado> ProfesorMateriaGrados { get; set; }
     }
 
 }

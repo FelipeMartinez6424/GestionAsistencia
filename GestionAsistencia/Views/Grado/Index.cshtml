@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Grado>
+
+<h2>Gestión de Grados</h2>
+<a asp-action="Create" class="btn btn-primary">Crear Nuevo Grado</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var grado in Model)
+        {
+            <tr>
+                <td>@grado.Nombre</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@grado.Id" class="btn btn-warning">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@grado.Id" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

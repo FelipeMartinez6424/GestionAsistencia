@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Materia>
+
+<h2>Gestión de Materias</h2>
+<a asp-action="Create" class="btn btn-primary">Crear Nueva Materia</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var materia in Model)
+        {
+            <tr>
+                <td>@materia.Nombre</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@materia.Id" class="btn btn-warning">Editar</a>
+                    <a asp-action="AsociarGrado" asp-route-id="@materia.Id" class="btn btn-info">Asociar Grados</a>
+                    <a asp-action="Delete" asp-route-id="@materia.Id" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

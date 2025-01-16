@@ -1,0 +1,12 @@
+﻿@model Estudiante
+
+<h2>Eliminar Estudiante</h2>
+<div class="alert alert-warning" role="alert">
+    ¿Estás seguro de que deseas eliminar al estudiante <strong>@Model.Nombre</strong> del grado <strong>@Model.Grado.Nombre</strong>?
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

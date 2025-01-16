@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Grado>
+
+<h2>Gestión de Grados y Asociaciones</h2>
+
+<!-- Crear Grado -->
+<h3>Crear Grado</h3>
+<form asp-action="CrearGrado" method="post">
+    <input type="text" name="nombre" placeholder="Nombre del grado" class="form-control" />
+    <button type="submit" class="btn btn-primary mt-2">Crear Grado</button>
+</form>
+
+<hr />
+
+<!-- Lista de Grados -->
+@foreach (var grado in Model)
+{
+    <h3>@grado.Nombre</h3>
+
+    <!-- Crear Estudiante -->
+    <h4>Estudiantes</h4>
+    <form asp-action="CrearEstudiante" method="post" class="mb-3">
+        <input type="hidden" name="gradoId" value="@grado.Id" />
+        <input type="text" name="nombre" placeholder="Nombre del estudiante" class="form-control mb-2" />
+        <input type="text" name="contactoPadres" placeholder="Contacto de los padres" class="form-control mb-2" />
+        <button type="submit" class="btn btn-secondary">Agregar Estudiante</button>
+    </form>
+
+    <ul>
+        @foreach (var estudiante in grado.Estudiantes)
+        {
+            <li>@estudiante.Nombre (@estudiante.ContactoPadres)</li>
+        }
+    </ul>
+
+    <!-- Crear Materia -->
+    <h4>Materias</h4>
+    <form asp-action="CrearMateria" method="post" class="mb-3">
+        <input type="hidden" name="gradoId" value="@grado.Id" />
+        <input type="text" name="nombreMateria" placeholder="Nombre de la materia" class="form-control mb-2" />
+        <button type="submit" class="btn btn-secondary">Agregar Materia</button>
+    </form>
+
+    <ul>
+        @foreach (var materia in grado.Materias)
+        {
+            <li>
+                @materia.Nombre
+                <form asp-action="AsociarProfesor" method="post" class="d-inline-block">
+                    <input type="hidden" name="gradoId" value="@grado.Id" />
+                    <input type="hidden" name="materiaId" value="@materia.Id" />
+                    <select name="profesorId" class="form-select d-inline-block w-auto">
+                        @foreach (var profesor in ViewBag.Profesores as List<Usuario>)
+                        {
+                            <option value="@profesor.Id">@profesor.Nombre</option>
+                        }
+                    </select>
+                    <button type="submit" class="btn btn-link">Asociar Profesor</button>
+                </form>
+            </li>
+        }
+    </ul>
+}

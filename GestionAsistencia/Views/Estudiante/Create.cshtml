@@ -1,0 +1,31 @@
+﻿@model Estudiante
+
+<h2>Crear Estudiante</h2>
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="Nombre" class="form-label">Nombre del Estudiante</label>
+        <input asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="GradoId" class="form-label">Grado</label>
+        <select asp-for="GradoId" class="form-select">
+            <option value="">Seleccione un grado</option>
+            @foreach (var grado in ViewBag.Grados as List<Grado>)
+            {
+                <option value="@grado.Id">@grado.Nombre</option>
+            }
+        </select>
+        <span asp-validation-for="GradoId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ContactoPadres" class="form-label">Contacto de los Padres</label>
+        <input asp-for="ContactoPadres" class="form-control" />
+        <span asp-validation-for="ContactoPadres" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

@@ -1,0 +1,48 @@
+﻿<h2>Asociar Profesores a Materias y Grados</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<form asp-action="Asociar" method="post">
+    <div class="mb-3">
+        <label for="usuarioId" class="form-label">Profesor</label>
+        <select name="usuarioId" class="form-select" required>
+            <option value="">Seleccione un profesor</option>
+            @foreach (var profesor in ViewBag.Profesores as List<Usuario>)
+            {
+                <option value="@profesor.Id">@profesor.Nombre</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="materiaId" class="form-label">Materia</label>
+        <select name="materiaId" class="form-select" required>
+            <option value="">Seleccione una materia</option>
+            @foreach (var materia in ViewBag.Materias as List<Materia>)
+            {
+                <option value="@materia.Id">@materia.Nombre</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="gradoId" class="form-label">Grado</label>
+        <select name="gradoId" class="form-select" required>
+            <option value="">Seleccione un grado</option>
+            @foreach (var grado in ViewBag.Grados as List<Grado>)
+            {
+                <option value="@grado.Id">@grado.Nombre</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar Asociación</button>
+</form>
