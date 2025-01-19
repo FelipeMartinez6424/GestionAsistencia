@@ -3,7 +3,7 @@
     var role = ViewBag.Role as string;
 }
 
-<h2>Dashboard</h2>
+<h2>Menú</h2>
 
 @if (role == "Superusuario")
 {
@@ -31,10 +31,17 @@
 }
 else if (role == "Profesor")
 {
-    <h3>Opciones del Profesor</h3>
+    
     <ul>
-        <li><a href="@Url.Action("VerCursos", "Profesor")">Ver Cursos Asignados</a></li>
-        <li><a href="@Url.Action("RegistrarAsistencia", "Profesor")">Registrar Asistencia</a></li>
+        <a href="@Url.Action("CursosDelDia", "Profesor")" class="list-group-item list-group-item-action">
+            <h5 class="mb-1">Registro de Asistencia</h5>
+            <p class="mb-1">Ver los cursos asignados para el día de hoy.</p>
+        </a>
+
+        <a href="@Url.Action("Horario", "Profesor")" class="list-group-item list-group-item-action">
+           <h5 class="mb-1">Horario</h5>
+            <p class="mb-1">Cursos asignados.</p>
+        </a>
     </ul>
 }
 else if (role == "Rector")

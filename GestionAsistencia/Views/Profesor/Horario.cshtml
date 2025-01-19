@@ -1,0 +1,36 @@
+﻿@model IEnumerable<IGrouping<string, Horario>>
+
+<h2>Horario del Profesor</h2>
+
+
+
+<div class="accordion" id="horarioAccordion">
+    @foreach (var dia in Model)
+    {
+        var diaId = dia.Key.Replace(" ", "").Replace("á", "a").Replace("é", "e").Replace("í", "i").Replace("ó", "o").Replace("ú", "u"); // Limpieza básica
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading@(diaId)">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@(diaId)" aria-expanded="false" aria-controls="collapse@(diaId)">
+                    @dia.Key
+                </button>
+            </h2>
+            <div id="collapse@(diaId)" class="accordion-collapse collapse" aria-labelledby="heading@(diaId)" data-bs-parent="#horarioAccordion">
+                <div class="accordion-body">
+                    <ul>
+                        @foreach (var horario in dia)
+                        {
+                            <li>Curso: @horario.Grado.Nombre - Materia: @horario.Materia.Nombre</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="d-flex justify-content-between mb-3">
+    <a href="@Url.Action("Dashboard", "Home")" class="btn btn-secondary">Volver</a>
+    <
+</div>
+
+

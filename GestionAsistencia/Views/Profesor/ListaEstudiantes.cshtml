@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Estudiante>
+
+<h2>Lista de Estudiantes</h2>
+
+<form asp-action="GuardarAsistencia" method="post">
+    <input type="hidden" name="horarioId" value="@ViewBag.HorarioId" />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre del Estudiante</th>
+                <th>Asistió</th>
+                <th>Retardo</th>
+                <th>Inasistencia</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var estudiante in Model)
+            {
+                <tr>
+                    <td>@estudiante.Nombre</td>
+                    <td>
+                        <input type="radio" name="estado_@estudiante.Id" value="Asistió" checked />
+                    </td>
+                    <td>
+                        <input type="radio" name="estado_@estudiante.Id" value="Retardo" />
+                    </td>
+                    <td>
+                        <input type="radio" name="estado_@estudiante.Id" value="Inasistencia"  />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-success">Guardar Asistencia</button>
+    <div class="d-flex justify-content-between mb-3">
+        
+        <a href="@Url.Action("CursosDelDia", "Profesor")" class="btn btn-danger">Cancelar</a>
+    </div>
+</form>

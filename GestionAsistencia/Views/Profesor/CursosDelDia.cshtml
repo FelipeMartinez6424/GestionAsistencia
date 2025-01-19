@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Horario>
+
+<h2>Clases del Día</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">@ViewBag.Mensaje</div>
+}
+else
+{
+    <ul class="list-group">
+        @foreach (var horario in Model)
+        {
+            <li class="list-group-item">
+                Curso: @horario.Grado.Nombre - Materia: @horario.Materia.Nombre
+                <a asp-action="ListaEstudiantes" asp-route-horarioId="@horario.Id" class="btn btn-primary btn-sm float-end">Registrar Asistencia</a>
+            </li>
+        }
+    </ul>
+}

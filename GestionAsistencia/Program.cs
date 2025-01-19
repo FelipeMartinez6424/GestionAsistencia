@@ -9,7 +9,10 @@ builder.Services.AddAuthentication("CookieAuth")
         options.LoginPath = "/Account/Login";
         options.LogoutPath = "/Account/Logout";
     });
-
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+           .EnableSensitiveDataLogging()
+           .LogTo(Console.WriteLine));
 builder.Services.AddAuthorization();
 builder.Services.AddControllersWithViews()
                 .AddMvcOptions(options => options.EnableEndpointRouting = false);

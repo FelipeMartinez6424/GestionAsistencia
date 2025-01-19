@@ -13,9 +13,13 @@ namespace GestionAsistencia.Data
         public DbSet<Materia> Materias { get; set; }
         public DbSet<Asistencia> Asistencias { get; set; }
         public DbSet<ProfesorMateriaGrado> ProfesorMateriaGrados { get; set; }
+        public DbSet<Horario> Horario { get; set; }
+        public DbSet<Inasistencia> Inasistencias { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
+            modelBuilder.Entity<Horario>().ToTable("Horario");
             // Configuración muchos a muchos entre Grado y Materia
             modelBuilder.Entity<Grado>()
                 .HasMany(g => g.Materias)
@@ -36,6 +40,25 @@ namespace GestionAsistencia.Data
                 .HasOne(pmg => pmg.Grado)
                 .WithMany()
                 .HasForeignKey(pmg => pmg.GradoId);
+            modelBuilder.Entity<Horario>()
+           .HasOne(h => h.Profesor)
+           .WithMany()
+           .HasForeignKey(h => h.ProfesorId);
+
+            modelBuilder.Entity<Horario>()
+                .HasOne(h => h.Materia)
+                .WithMany()
+                .HasForeignKey(h => h.MateriaId);
+
+            modelBuilder.Entity<Horario>()
+                .HasOne(h => h.Grado)
+                .WithMany()
+                .HasForeignKey(h => h.GradoId);
+            modelBuilder.Entity<Asistencia>()
+                .HasOne(a => a.Horario)
+                .WithMany()
+                .HasForeignKey(a => a.HorarioId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 
