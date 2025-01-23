@@ -54,11 +54,15 @@ namespace GestionAsistencia.Controllers
             return RedirectToAction("Dashboard", "Home");
         }
 
-        [HttpGet]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync("CookieAuth");
-            return RedirectToAction("Login");
+            // Cierra la sesión
+            await HttpContext.SignOutAsync();
+
+            // Redirige al login
+            return RedirectToAction("Login", "Account");
         }
     }
 }

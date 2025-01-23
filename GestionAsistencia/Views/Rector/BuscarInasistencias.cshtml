@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Buscar Inasistencias";
+}
+
+<h2>Buscar Inasistencias por Curso y Fecha</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<form asp-action="BuscarInasistencias" method="post" class="mt-4">
+    <div class="mb-3">
+        <label for="gradoId" class="form-label">Curso</label>
+        <select name="gradoId" class="form-select" required>
+            <option value="">Seleccione un curso</option>
+            @foreach (var curso in ViewBag.Cursos as List<GestionAsistencia.Models.Grado>)
+            {
+                <option value="@curso.Id">@curso.Nombre</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="fechaInicio" class="form-label">Fecha Inicio</label>
+        <input type="date" name="fechaInicio" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="fechaFin" class="form-label">Fecha Fin</label>
+        <input type="date" name="fechaFin" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary" style="background-color: #32cd32; border-color: #32cd32;">Buscar</button>
+</form>

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<GestionAsistencia.Models.Inasistencia>
+
+@{
+    ViewBag.Title = "Resultados de Inasistencias";
+}
+
+<h2>Resultados de Inasistencias</h2>
+
+<p>Curso: @ViewBag.CursoSeleccionado</p>
+<p>Rango de Fechas: @ViewBag.FechaInicio - @ViewBag.FechaFin</p>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No se encontraron inasistencias para este curso en el rango de fechas seleccionado.</div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre del Estudiante</th>
+                <th>Grado</th>
+                <th>Materia</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var inasistencia in Model)
+            {
+                <tr>
+                    <td>@inasistencia.NombreEstudiante</td>
+                    <td>@inasistencia.Grado</td>
+                    <td>@inasistencia.Materia</td>
+                    <td>@inasistencia.Fecha.ToString("dd/MM/yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<a asp-action="BuscarInasistencias" class="btn btn-secondary" style="background-color: #32cd32; border-color: #32cd32;">Nueva Búsqueda</a>
+

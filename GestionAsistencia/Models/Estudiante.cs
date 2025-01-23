@@ -17,6 +17,8 @@ namespace GestionAsistencia.Models
         [Required(ErrorMessage = "El contacto de los padres es obligatorio.")]
         [Phone(ErrorMessage = "El formato del número de contacto no es válido.")]
         public string ContactoPadres { get; set; }
+        public string NombreAcudiente { get; set; } // Nombre del acudiente
+        public ICollection<Inasistencia> Inasistencias { get; set; }
     }
 
 

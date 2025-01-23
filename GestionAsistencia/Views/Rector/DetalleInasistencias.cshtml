@@ -1,0 +1,45 @@
+﻿@model IEnumerable<GestionAsistencia.Models.Inasistencia>
+
+@{
+    ViewData["Title"] = "Detalle de Inasistencias";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-5" style="background-color: #006400; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px #32cd32;">
+    <h2 class="text-center" style="color: #ffffff;">Detalle de Inasistencias</h2>
+
+    <p style="color: #ffffff;"><strong>Nombre del Estudiante:</strong> @ViewBag.NombreEstudiante</p>
+    <p style="color: #ffffff;"><strong>Contacto del Padre:</strong> @ViewBag.ContactoPadres</p>
+
+    <table class="table table-bordered mt-4">
+        <thead class="table-dark">
+            <tr>
+                <th>Fecha</th>
+                <th>Grado</th>
+                <th>Materia</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="color: #ffffff;">@item.Fecha.ToString("dd/MM/yyyy")</td>
+                        <td style="color: #ffffff;">@item.Grado</td>
+                        <td style="color: #ffffff;">@item.Materia</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3" class="text-center" style="color: #ffffff;">No hay detalles disponibles.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<a asp-action="Ranking" class="btn btn-secondary" style="background-color: #32cd32; border-color: #32cd32;">Volver al Ranking</a>
+

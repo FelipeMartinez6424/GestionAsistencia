@@ -1,22 +1,203 @@
-html {
-  font-size: 14px;
-}
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* Fondo verde para el dashboard */
 body {
-  margin-bottom: 60px;
+    background-color: #006400; /* Verde oscuro */
+    color: #ffffff; /* Letras blancas */
+}
+
+/* Navbar */
+.navbar {
+    background-color: #ffffff; /* Fondo blanco */
+    border-bottom: 2px solid #ddd;
+}
+
+/* Íconos de Inicio y Logout */
+.nav-link i {
+    font-size: 1.5rem;
+}
+
+/* Opciones de Selección */
+.container .card {
+    background-color: #ffffff; /* Fondo blanco */
+    border: 2px solid #006400; /* Borde verde oscuro */
+    color: #006400; /* Texto verde */
+}
+
+    .container .card:hover {
+        background-color: #004d00; /* Fondo verde más oscuro */
+        color: #ffffff; /* Texto blanco */
+        border-color: #004d00;
+        cursor: pointer;
+    }
+
+/* Botón de Logout */
+.btn-link:hover {
+    text-decoration: none;
+}
+/* Fondo verde oscuro del dashboard */
+body {
+    background-color: #006400; /* Verde oscuro */
+    color: #ffffff; /* Letras blancas */
+}
+
+/* Títulos y textos en blanco */
+h2, h3, p {
+    color: #ffffff; /* Letras blancas */
+}
+
+/* Estilo para las opciones (list-group-item) */
+.custom-list-item {
+    background-color: #ffffff; /* Fondo blanco */
+    border: 2px solid #006400; /* Borde verde oscuro */
+    color: #006400; /* Texto verde oscuro */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    /* Hover en las opciones */
+    .custom-list-item:hover {
+        background-color: #004d00; /* Fondo verde más oscuro */
+        color: #ffffff; /* Texto blanco */
+        border-color: #004d00; /* Borde verde más oscuro */
+        cursor: pointer;
+    }
+
+/* Centrando el contenido */
+.container {
+    margin-top: 50px;
+}
+
+/* Opciones centradas */
+.list-group-item {
+    text-align: left;
+}
+/* Estilo minimalista para las opciones */
+.custom-list-item {
+    background-color: #ffffff; /* Fondo blanco */
+    border: none; /* Sin bordes */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    color: #006400; /* Texto principal en verde */
+    margin-bottom: 15px; /* Espaciado entre opciones */
+    padding: 15px; /* Espaciado interno */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    /* Hover con efecto */
+    .custom-list-item:hover {
+        background-color: #f0fdf0; /* Fondo verde muy claro */
+        transform: translateY(-5px); /* Efecto de elevación */
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+        cursor: pointer;
+    }
+
+    /* Títulos y descripciones en verde */
+    .custom-list-item h5 {
+        color: #006400; /* Verde oscuro */
+        font-weight: bold;
+    }
+
+    .custom-list-item p {
+        color: #007f00; /* Verde ligeramente más claro */
+    }
+/* Contenedor principal con fondo verde */
+.container {
+    background-color: #006400; /* Fondo verde oscuro */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos en blanco */
+h2 {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Texto en las tablas */
+.table td, .table th {
+    color: #ffffff; /* Texto blanco */
+}
+
+/* Fondo oscuro para encabezados */
+.table-dark {
+    background-color: #004d00; /* Verde más oscuro */
+}
+
+/* Botones en verde claro */
+.btn-success {
+    background-color: #32cd32; /* Verde claro */
+    border-color: #32cd32;
+    color: #ffffff;
+}
+
+    .btn-success:hover {
+        background-color: #28a428; /* Hover verde más oscuro */
+        border-color: #28a428;
+    }
+/* Centrado de elementos en la lista */
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff; /* Blanco */
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    margin-bottom: 15px;
+    padding: 15px;
+}
+
+    /* Texto del curso y materia */
+    .list-group-item div {
+        color: #006400; /* Verde oscuro */
+        font-weight: bold;
+    }
+
+/* Botones verdes claros */
+.btn-success {
+    background-color: #32cd32; /* Verde claro */
+    border-color: #32cd32;
+    color: #ffffff;
+}
+
+    .btn-success:hover {
+        background-color: #28a428; /* Hover verde más oscuro */
+        border-color: #28a428;
+    }
+
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px; /* Espaciado superior */
+}
+/* Fondo del acordeón */
+.accordion-body {
+    background-color: #32cd32; /* Verde claro */
+    color: #ffffff; /* Texto blanco */
+}
+
+/* Botón de volver */
+.btn-success {
+    background-color: #32cd32; /* Verde claro */
+    border-color: #32cd32;
+    color: #ffffff;
+}
+
+    .btn-success:hover {
+        background-color: #28a428; /* Hover verde más oscuro */
+        border-color: #28a428;
+    }
+/* Cambiar color de hover en el botón del acordeón */
+.accordion-button:not(.collapsed):hover,
+.accordion-button:hover {
+    background-color: #32cd32; /* Verde claro */
+    color: #ffffff; /* Texto blanco */
+}
+
+/* Cambiar el color de la opción activa */
+.accordion-button:not(.collapsed) {
+    background-color: #32cd32; /* Verde claro */
+    color: #ffffff; /* Texto blanco */
+    box-shadow: none; /* Sin sombra azul */
 }

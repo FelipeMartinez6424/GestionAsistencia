@@ -1,20 +1,89 @@
-﻿@model LoginViewModel
+﻿@{
+    Layout = null; // No usar el layout principal
+}
 
-<h2>Inicio de Sesión</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - GestionAsistencia</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+        /* Fondo verde oscuro */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #006400; /* Verde oscuro */
+        }
 
-<form asp-action="Login" method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        /* Contenedor del formulario */
+        .login-container {
+            text-align: center;
+            max-width: 400px; /* Ancho máximo del formulario */
+            width: 100%;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff; /* Fondo blanco del formulario */
+        }
 
-    <div>
-        <label for="Email">Email</label>
-        <input type="email" asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
+            .login-container img {
+                max-width: 150px;
+                margin-bottom: 20px;
+            }
+
+            .login-container h2 {
+                color: #006400; /* Verde oscuro */
+                margin-bottom: 20px;
+            }
+
+        .form-control {
+            border-color: #006400; /* Verde oscuro */
+            color: #006400;
+            width: 90%; /* Ajusta el ancho de los campos */
+            margin: 0 auto; /* Centra los campos */
+        }
+
+            .form-control:focus {
+                box-shadow: 0 0 5px #006400;
+                border-color: #006400;
+            }
+
+        .btn-primary {
+            background-color: #006400;
+            border-color: #006400;
+        }
+
+            .btn-primary:hover {
+                background-color: #004d00;
+                border-color: #004d00;
+            }
+
+        .text-muted {
+            color: #006400 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <img src="~/images/logo.jpg" alt="Logo del Colegio" />
+        <h2>Iniciar Sesión</h2>
+        <form asp-action="Login" method="post">
+            <div class="mb-3">
+                <label for="Email" class="form-label">Correo Electrónico</label>
+                <input type="email" class="form-control" id="Email" name="Email" placeholder="Tu correo" required />
+            </div>
+            <div class="mb-3">
+                <label for="Password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="Password" name="Password" placeholder="Tu contraseña" required />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Entrar</button>
+        </form>
     </div>
-    <div>
-        <label for="Password">Contraseña</label>
-        <input type="password" asp-for="Password" class="form-control" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-</form>
-
+</body>
+</html>

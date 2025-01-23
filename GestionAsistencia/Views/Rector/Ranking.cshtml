@@ -1,0 +1,48 @@
+﻿@model IEnumerable<dynamic>
+
+<h2 style="color: #ffffff;">Ranking de Estudiantes con Más Inasistencias</h2>
+
+<form method="get" class="mb-3">
+    <input type="text" name="filtroNombre" class="form-control" placeholder="Buscar por nombre" value="@Context.Request.Query["filtroNombre"]" />
+    <button type="submit" class="btn btn-success mt-2" style="background-color: #32cd32; border-color: #32cd32;">Buscar</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Posición</th>
+            <th>Nombre del Estudiante</th>
+            <th>Grado</th>
+            <th>Total de Inasistencias</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            var posicion = 1;
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@posicion</td>
+                    <td>@item.Nombre</td>
+                    <td>@item.Grado</td>
+                    <td>@item.TotalInasistencias</td>
+                    <td>
+                        <a asp-action="DetalleInasistencias" asp-route-estudianteId="@item.EstudianteId" class="btn btn-success btn-sm" style="background-color: #32cd32; border-color: #32cd32;">
+                            Ver Detalle
+                        </a>
+                    </td>
+                </tr>
+                posicion++;
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No se encontraron resultados.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

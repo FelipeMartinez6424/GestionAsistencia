@@ -98,7 +98,7 @@ namespace GestionAsistencia.Controllers
                     _context.Inasistencias.Add(new Inasistencia
                     {
                         EstudianteId = estudiante.Id,
-                        NombreEstudiante = estudiante.Nombre,
+                        NombreEstudiante = estudiante.Nombre, // Nueva propiedad
                         Grado = horario.Grado.Nombre,
                         Materia = horario.Materia.Nombre,
                         Fecha = fechaHoy
@@ -109,6 +109,7 @@ namespace GestionAsistencia.Controllers
             _context.SaveChanges();
             return RedirectToAction("CursosDelDia");
         }
+
         [HttpGet]
         public IActionResult Horario()
         {

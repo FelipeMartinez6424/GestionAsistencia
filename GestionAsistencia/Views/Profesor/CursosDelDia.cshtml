@@ -1,20 +1,25 @@
 ﻿@model IEnumerable<Horario>
 
-<h2>Clases del Día</h2>
+<div class="container my-5" style="background-color: #006400; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+    <h2 class="text-center" style="color: #ffffff;">Clases del Día</h2>
 
-@if (!Model.Any())
-{
-    <div class="alert alert-info">@ViewBag.Mensaje</div>
-}
-else
-{
-    <ul class="list-group">
-        @foreach (var horario in Model)
-        {
-            <li class="list-group-item">
-                Curso: @horario.Grado.Nombre - Materia: @horario.Materia.Nombre
-                <a asp-action="ListaEstudiantes" asp-route-horarioId="@horario.Id" class="btn btn-primary btn-sm float-end">Registrar Asistencia</a>
-            </li>
-        }
-    </ul>
-}
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center" style="background-color: #32cd32; color: #ffffff; border-color: #28a428;">@ViewBag.Mensaje</div>
+    }
+    else
+    {
+        <ul class="list-group">
+            @foreach (var horario in Model)
+            {
+                <li class="list-group-item" style="background-color: #ffffff; border: none; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin-bottom: 15px; padding: 15px;">
+                    <div style="color: #006400; font-weight: bold;">Curso: @horario.Grado.Nombre - Materia: @horario.Materia.Nombre</div>
+                    <a asp-action="ListaEstudiantes" asp-route-horarioId="@horario.Id" class="btn btn-success btn-sm float-end" style="background-color: #32cd32; border-color: #32cd32;">
+                        Registrar Asistencia
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+</div>
+

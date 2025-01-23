@@ -59,6 +59,10 @@ namespace GestionAsistencia.Data
                 .WithMany()
                 .HasForeignKey(a => a.HorarioId)
                 .OnDelete(DeleteBehavior.NoAction);
+            //modelBuilder.Entity<Inasistencia>()
+            //   .HasOne(i => i.Estudiante)
+            //   .WithMany(e => e.Inasistencias) // Si la relación es uno a muchos
+            //   .HasForeignKey(i => i.EstudianteId);
         }
     }
 

@@ -1,83 +1,120 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using GestionAsistencia.Data;
+using GestionAsistencia.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using GestionAsistencia.Data;
+using GestionAsistencia.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace GestionAsistencia.Controllers
 {
+    [Authorize(Roles = "Rector")]
     public class RectorController : Controller
     {
-        // GET: RectorController
-        public ActionResult Index()
+        private readonly AppDbContext _context;
+
+        public RectorController(AppDbContext context)
         {
-            return View();
+            _context = context;
+        }
+        
+
+        // Ranking de estudiantes con más inasistencias
+        public IActionResult Ranking(string filtroNombre = "")
+        {
+            var ranking = _context.Inasistencias
+                .GroupBy(i => new { i.EstudianteId, i.NombreEstudiante, i.Grado })
+                .Select(g => new
+                {
+                    EstudianteId = g.Key.EstudianteId,
+                    Nombre = g.Key.NombreEstudiante, // Usar NombreEstudiante en lugar de Estudiante
+                    Grado = g.Key.Grado,
+                    TotalInasistencias = g.Count()
+                })
+                .OrderByDescending(g => g.TotalInasistencias)
+                .Take(50)
+                .ToList();
+
+            if (!string.IsNullOrEmpty(filtroNombre))
+            {
+                ranking = ranking.Where(r => r.Nombre.Contains(filtroNombre, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            return View(ranking);
         }
 
-        // GET: RectorController/Details/5
-        public ActionResult Details(int id)
+
+
+        public IActionResult DetalleInasistencias(int estudianteId)
         {
-            return View();
+            // Obtén los detalles de inasistencias
+            var detalles = _context.Inasistencias
+                .Where(i => i.EstudianteId == estudianteId)
+                .OrderByDescending(i => i.Fecha)
+                .ToList();
+
+            // Obtén los datos del estudiante
+            var estudiante = _context.Estudiantes.FirstOrDefault(e => e.Id == estudianteId);
+
+            if (estudiante != null)
+            {
+                ViewBag.NombreEstudiante = estudiante.Nombre;
+                ViewBag.NombreAcudiente = estudiante.NombreAcudiente;
+                ViewBag.ContactoPadres = estudiante.ContactoPadres;
+            }
+            else
+            {
+                ViewBag.NombreEstudiante = "Estudiante no encontrado";
+                ViewBag.NombreAcudiente = "N/A";
+                ViewBag.ContactoPadres = "N/A";
+            }
+
+            return View(detalles);
         }
 
-        // GET: RectorController/Create
-        public ActionResult Create()
+        public IActionResult BuscarInasistencias()
         {
+            // Obtener los cursos disponibles
+            var cursos = _context.Grados.ToList();
+            ViewBag.Cursos = cursos;
+
             return View();
         }
-
-        // POST: RectorController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult BuscarInasistencias(int gradoId, DateTime fechaInicio, DateTime fechaFin)
         {
-            try
+            // Validar datos
+            if (gradoId == 0 || fechaInicio == default || fechaFin == default)
             {
-                return RedirectToAction(nameof(Index));
+                TempData["Error"] = "Todos los campos son obligatorios.";
+                return RedirectToAction("BuscarInasistencias");
             }
-            catch
+
+            if (fechaInicio > fechaFin)
             {
-                return View();
+                TempData["Error"] = "La fecha de inicio no puede ser mayor a la fecha de fin.";
+                return RedirectToAction("BuscarInasistencias");
             }
+
+            // Filtrar inasistencias por curso y rango de fechas
+            var inasistencias = _context.Inasistencias
+                .Where(i => i.Grado == _context.Grados.FirstOrDefault(g => g.Id == gradoId).Nombre &&
+                            i.Fecha >= fechaInicio &&
+                            i.Fecha <= fechaFin)
+                .OrderBy(i => i.Fecha)
+                .ToList();
+
+            ViewBag.CursoSeleccionado = _context.Grados.FirstOrDefault(g => g.Id == gradoId)?.Nombre;
+            ViewBag.FechaInicio = fechaInicio.ToString("dd/MM/yyyy");
+            ViewBag.FechaFin = fechaFin.ToString("dd/MM/yyyy");
+
+            return View("ResultadosInasistencias", inasistencias);
         }
 
-        // GET: RectorController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
 
-        // POST: RectorController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: RectorController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: RectorController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
