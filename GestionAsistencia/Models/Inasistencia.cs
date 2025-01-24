@@ -10,7 +10,4 @@
         public DateTime Fecha { get; set; }
     }
 
-
-
-
 }

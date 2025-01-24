@@ -39,6 +39,7 @@ namespace GestionAsistencia.Controllers
         {
             // Ignorar la validación de la propiedad de navegación Grado
             ModelState.Remove(nameof(estudiante.Grado));
+            //ModelState.Remove(nameof(estudiante.Inasistencias));
 
             if (ModelState.IsValid)
             {
@@ -68,6 +69,7 @@ namespace GestionAsistencia.Controllers
         {
             // Ignorar la validación de la propiedad de navegación Grado
             ModelState.Remove(nameof(estudiante.Grado));
+            //ModelState.Remove(nameof(estudiante.Inasistencias));
 
             if (ModelState.IsValid)
             {

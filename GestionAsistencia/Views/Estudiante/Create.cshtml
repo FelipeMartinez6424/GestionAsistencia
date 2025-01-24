@@ -21,7 +21,13 @@
     </div>
 
     <div class="mb-3">
-        <label asp-for="ContactoPadres" class="form-label">Contacto de los Padres</label>
+        <label asp-for="NombreAcudiente" class="form-label">Nombre Acudiente</label>
+        <input asp-for="NombreAcudiente" class="form-control" />
+        <span asp-validation-for="NombreAcudiente" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ContactoPadres" class="form-label">Contacto Acudiente</label>
         <input asp-for="ContactoPadres" class="form-control" />
         <span asp-validation-for="ContactoPadres" class="text-danger"></span>
     </div>
