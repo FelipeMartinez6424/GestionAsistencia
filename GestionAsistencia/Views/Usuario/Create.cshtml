@@ -1,0 +1,36 @@
+﻿@model Usuario
+
+<h2>Crear Usuario</h2>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label for="Nombre" class="form-label">Nombre</label>
+        <input asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label for="Email" class="form-label">Correo Electrónico</label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label for="Password" class="form-label">Contraseña</label>
+        <input asp-for="Password" type="password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label for="Rol" class="form-label">Rol</label>
+        <select asp-for="Rol" class="form-select">
+            <option value="">Seleccionar Rol</option>
+            <option value="Profesor">Profesor</option>
+            <option value="Rector">Rector</option>
+        </select>
+        <span asp-validation-for="Rol" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <a href="@Url.Action("Index", "Usuario")" class="btn btn-secondary">Cancelar</a>
+</form>

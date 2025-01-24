@@ -15,7 +15,7 @@ namespace GestionAsistencia.Models
         public int GradoId { get; set; }
         public Grado Grado { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El día de la semana es obligatorio.")]
         public string DiaSemana { get; set; } // Lunes, Martes, Miércoles, etc.
     }
 

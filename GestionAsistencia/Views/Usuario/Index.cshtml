@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Usuario>
+
+<h2>Gestión de Usuarios</h2>
+
+<a href="@Url.Action("Create", "Usuario")" class="btn btn-primary mb-3">Crear Usuario</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Rol</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var usuario in Model)
+        {
+            <tr>
+                <td>@usuario.Id</td>
+                <td>@usuario.Nombre</td>
+                <td>@usuario.Email</td>
+                <td>@usuario.Rol</td>
+            </tr>
+        }
+    </tbody>
+</table>
