@@ -11,7 +11,6 @@ namespace GestionAsistencia.Models
 
         [Required(ErrorMessage = "El grado es obligatorio.")]
         public int GradoId { get; set; }
-
         public Grado Grado { get; set; }
 
         [Required(ErrorMessage = "El contacto de los padres es obligatorio.")]

@@ -2,6 +2,14 @@
 
 <h2>Lista de Estudiantes</h2>
 
+<!-- Mensaje de error -->
+@if (!string.IsNullOrEmpty(ViewBag.Mensaje))
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.Mensaje
+    </div>
+}
+
 <form asp-action="GuardarAsistencia" method="post">
     <input type="hidden" name="horarioId" value="@ViewBag.HorarioId" />
 
@@ -17,16 +25,22 @@
         <tbody>
             @foreach (var estudiante in Model)
             {
+                var asistencia = ViewBag.Asistencias != null
+                ? ((List<Asistencia>)ViewBag.Asistencias).FirstOrDefault(a => a.EstudianteId == estudiante.Id)
+                : null;
+
+                var estadoActual = asistencia != null ? asistencia.Estado.ToString() : "Asistió";
+
                 <tr>
                     <td>@estudiante.Nombre</td>
                     <td>
-                        <input type="radio" name="estado_@estudiante.Id" value="Asistió" checked />
+                        <input type="radio" name="estado_@estudiante.Id" value="Asistio" @(estadoActual == "Asistio" ? "checked" : "") />
                     </td>
                     <td>
-                        <input type="radio" name="estado_@estudiante.Id" value="Retardo" />
+                        <input type="radio" name="estado_@estudiante.Id" value="Retardo" @(estadoActual == "Retardo" ? "checked" : "") />
                     </td>
                     <td>
-                        <input type="radio" name="estado_@estudiante.Id" value="Inasistencia"  />
+                        <input type="radio" name="estado_@estudiante.Id" value="Inasistencia" @(estadoActual == "Inasistencia" ? "checked" : "") />
                     </td>
                 </tr>
             }

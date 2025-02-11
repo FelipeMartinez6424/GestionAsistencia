@@ -13,7 +13,6 @@ namespace GestionAsistencia.Data
         public DbSet<Materia> Materias { get; set; }
         public DbSet<Asistencia> Asistencias { get; set; }
         public DbSet<Horario> Horario { get; set; }
-        public DbSet<Inasistencia> Inasistencias { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,6 +37,7 @@ namespace GestionAsistencia.Data
                 .HasOne(h => h.Grado)
                 .WithMany()
                 .HasForeignKey(h => h.GradoId);
+
             modelBuilder.Entity<Asistencia>()
                 .HasOne(a => a.Horario)
                 .WithMany()

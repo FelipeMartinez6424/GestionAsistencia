@@ -21,18 +21,22 @@ namespace GestionAsistencia.Controllers
         {
             _context = context;
         }
-        
+
 
         // Ranking de estudiantes con más inasistencias
         public IActionResult Ranking(string filtroNombre = "")
         {
-            var ranking = _context.Inasistencias
-                .GroupBy(i => new { i.EstudianteId, i.NombreEstudiante, i.Grado })
+            var ranking = _context.Asistencias
+                .Include(a => a.Estudiante)
+                .Include(a => a.Horario)
+                    .ThenInclude(h => h.Grado) // Incluir la relación con Grado
+                .Where(a => a.Estado == EstadoAsistencia.Inasistencia) // Filtrar solo inasistencias
+                .GroupBy(a => new { a.EstudianteId, a.Estudiante.Nombre, GradoNombre = a.Horario.Grado.Nombre }) // Alias para Grado.Nombre
                 .Select(g => new
                 {
                     EstudianteId = g.Key.EstudianteId,
-                    Nombre = g.Key.NombreEstudiante, // Usar NombreEstudiante en lugar de Estudiante
-                    Grado = g.Key.Grado,
+                    Nombre = g.Key.Nombre,
+                    Grado = g.Key.GradoNombre, // Acceder al alias
                     TotalInasistencias = g.Count()
                 })
                 .OrderByDescending(g => g.TotalInasistencias)
@@ -47,18 +51,20 @@ namespace GestionAsistencia.Controllers
             return View(ranking);
         }
 
-
-
         public IActionResult DetalleInasistencias(int estudianteId)
         {
-            // Obtén los detalles de inasistencias
-            var detalles = _context.Inasistencias
-                .Where(i => i.EstudianteId == estudianteId)
-                .OrderByDescending(i => i.Fecha)
+            // Obtén los detalles de asistencias marcadas como inasistencia
+            var detalles = _context.Asistencias
+                .Include(a => a.Horario)
+                    .ThenInclude(h => h.Materia)
+                .Where(a => a.EstudianteId == estudianteId && a.Estado == EstadoAsistencia.Inasistencia)
+                .OrderByDescending(a => a.Fecha)
                 .ToList();
 
             // Obtén los datos del estudiante
-            var estudiante = _context.Estudiantes.FirstOrDefault(e => e.Id == estudianteId);
+            var estudiante = _context.Estudiantes
+                .Include(e => e.Grado) // Incluir la relación con Grado
+                .FirstOrDefault(e => e.Id == estudianteId);
 
             if (estudiante != null)
             {
@@ -84,6 +90,7 @@ namespace GestionAsistencia.Controllers
 
             return View();
         }
+
         [HttpPost]
         public IActionResult BuscarInasistencias(int gradoId, DateTime fechaInicio, DateTime fechaFin)
         {
@@ -100,15 +107,29 @@ namespace GestionAsistencia.Controllers
                 return RedirectToAction("BuscarInasistencias");
             }
 
-            // Filtrar inasistencias por curso y rango de fechas
-            var inasistencias = _context.Inasistencias
-                .Where(i => i.Grado == _context.Grados.FirstOrDefault(g => g.Id == gradoId).Nombre &&
-                            i.Fecha >= fechaInicio &&
-                            i.Fecha <= fechaFin)
-                .OrderBy(i => i.Fecha)
+            // Obtener el nombre del grado
+            var grado = _context.Grados.FirstOrDefault(g => g.Id == gradoId);
+            if (grado == null)
+            {
+                TempData["Error"] = "El grado seleccionado no existe.";
+                return RedirectToAction("BuscarInasistencias");
+            }
+
+            // Filtrar asistencias marcadas como "Inasistencia" en el rango de fechas
+            var inasistencias = _context.Asistencias
+                .Include(a => a.Estudiante)
+                .Include(a => a.Horario)
+                    .ThenInclude(h => h.Grado)
+                .Include(a => a.Horario)
+                    .ThenInclude(h => h.Materia)
+                .Where(a => a.Horario.GradoId == gradoId &&
+                            a.Fecha >= fechaInicio &&
+                            a.Fecha <= fechaFin &&
+                            a.Estado == EstadoAsistencia.Inasistencia) // Filtrar solo inasistencias
+                .OrderBy(a => a.Fecha)
                 .ToList();
 
-            ViewBag.CursoSeleccionado = _context.Grados.FirstOrDefault(g => g.Id == gradoId)?.Nombre;
+            ViewBag.CursoSeleccionado = grado.Nombre;
             ViewBag.FechaInicio = fechaInicio.ToString("dd/MM/yyyy");
             ViewBag.FechaFin = fechaFin.ToString("dd/MM/yyyy");
 

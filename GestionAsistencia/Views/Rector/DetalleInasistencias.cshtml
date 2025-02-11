@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GestionAsistencia.Models.Inasistencia>
+﻿@model IEnumerable<GestionAsistencia.Models.Asistencia>
 
 @{
     ViewData["Title"] = "Detalle de Inasistencias";
@@ -8,8 +8,8 @@
 <div class="container my-5" style="background-color: #006400; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px #32cd32;">
     <h2 class="text-center" style="color: #ffffff;">Detalle de Inasistencias</h2>
 
-    <p style="color: #ffffff;"><strong>Nombre del Estudiante:</strong> @ViewBag.NombreEstudiante</p>
-    <p style="color: #ffffff;"><strong>Contacto del Padre:</strong> @ViewBag.ContactoPadres</p>
+    <p style="color: #ffffff;"><strong>Nombre del estudiante:</strong> @ViewBag.NombreEstudiante</p>
+    <p style="color: #ffffff;"><strong>Contacto del acudiente:</strong> @ViewBag.ContactoPadres</p>
 
     <table class="table table-bordered mt-4">
         <thead class="table-dark">
@@ -26,8 +26,8 @@
                 {
                     <tr>
                         <td style="color: #ffffff;">@item.Fecha.ToString("dd/MM/yyyy")</td>
-                        <td style="color: #ffffff;">@item.Grado</td>
-                        <td style="color: #ffffff;">@item.Materia</td>
+                        <td style="color: #ffffff;">@item.Estudiante.Grado.Nombre</td>
+                        <td style="color: #ffffff;">@item.Horario.Materia.Nombre</td>
                     </tr>
                 }
             }

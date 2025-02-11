@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GestionAsistencia.Models.Inasistencia>
+﻿@model IEnumerable<GestionAsistencia.Models.Asistencia>
 
 @{
     ViewBag.Title = "Resultados de Inasistencias";
@@ -28,9 +28,9 @@ else
             @foreach (var inasistencia in Model)
             {
                 <tr>
-                    <td>@inasistencia.NombreEstudiante</td>
-                    <td>@inasistencia.Grado</td>
-                    <td>@inasistencia.Materia</td>
+                    <td>@inasistencia.Estudiante.Nombre</td>
+                    <td>@inasistencia.Estudiante.Grado.Nombre</td>
+                    <td>@inasistencia.Horario.Materia.Nombre</td>
                     <td>@inasistencia.Fecha.ToString("dd/MM/yyyy")</td>
                 </tr>
             }
